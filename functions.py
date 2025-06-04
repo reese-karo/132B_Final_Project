@@ -2,7 +2,7 @@
 import numpy as np
 
 # import affine scaling method from HW5
-def affine_scaling(x, A, c, tol = 1e-6):
+def affine_scaling(x, A, c, tol = 1e-9):
     """
     Solves a linear programming problem using the affine scaling method.
     Inputs:
@@ -68,9 +68,8 @@ def two_phase_affine_scaling(A, b, c, u):
     x_hat = np.append(u, 1.0)
 
     # solve the artificial problem using affine scaling
-    x = affine_scaling(x_hat, A_hat, c_hat)
+    x_0 = affine_scaling(x_hat, A_hat, c_hat)[:n]
 
-    # WIP leave this out for now, implement when confident in streamlined process 
     # perform phase 2 using x_0 as initial feasible point 
-    #x = affine_scaling(x_0[:n], A, c)
+    x = affine_scaling(x_0[:n], A, c)
     return x
